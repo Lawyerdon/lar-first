@@ -16,14 +16,32 @@ Route::get('/', function () {
 });
 
 Route::get('/tasks',function (){
-    echo 'all tasks';
-});
+    $tasks = \App\Models\Task::all();
+    return view('tasks.index',[
+        'tasks'=>$tasks,
+    ]);
+})->name('tasks.index');
+
 Route::get('/tasks/create',function (){
-    echo 'form for new task';
-});
-Route::post('/tasks',function (){
-    echo 'store new task';
-});
+    return view('tasks.create');
+})->name('tasks.create');
+
+Route::post('/tasks',function (\Illuminate\Http\Request $request){
+   $validator = Validator::make($request->all(),['name'=>'required|max:255',]);
+   if($validator->fails()){
+       return redirect(route('tasks.create'))
+           ->withInput()
+           ->withErrors($validator);
+   }
+   $task = new\App\Models\Task();
+   $task->name = $request->name;
+   $task->save();
+//   \App\Models\Task::create(['name'=>$request->name]);
+
+   return redirect(route('tasks.index'));
+
+})->name('tasks.store');
+
 Route::delete('/task/{task}', function (){
     echo 'delete task';
 });
