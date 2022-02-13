@@ -33,7 +33,7 @@ Route::post('/tasks',function (\Illuminate\Http\Request $request){
            ->withInput()
            ->withErrors($validator);
    }
-   $task = new\App\Models\Task();
+   $task = new \App\Models\Task();
    $task->name = $request->name;
    $task->save();
 //   \App\Models\Task::create(['name'=>$request->name]);
@@ -42,7 +42,9 @@ Route::post('/tasks',function (\Illuminate\Http\Request $request){
 
 })->name('tasks.store');
 
-Route::delete('/task/{task}', function (){
-    echo 'delete task';
+Route::delete('/task/{task}', function (\App\Models\Task $task){
+//    echo 'delete task';
+    $task->delete();
+    return redirect(route('tasks.index'));
 });
 
