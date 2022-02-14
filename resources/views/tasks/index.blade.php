@@ -32,15 +32,23 @@
                             </td>
 
                             <td>
-                                <form action="{{ url('task/'.$task->id) }}" method="POST">
+                                <form action="{{ route('tasks.delete',$task->id) }}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
 
                                     <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i> Удалить задачу
+                                        <i class="fa fa-trash"></i> Delete
                                     </button>
                                 </form>
                             </td>
+                            <td>
+                                <form action="{{ route('tasks.edit',$task->id) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('GET') }}
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i> Edit
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
