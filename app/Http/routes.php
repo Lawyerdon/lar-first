@@ -36,8 +36,6 @@ Route::post('/tasks',function (\Illuminate\Http\Request $request){
    $task = new \App\Models\Task();
    $task->name = $request->name;
    $task->save();
-//   \App\Models\Task::create(['name'=>$request->name]);
-
    return redirect(route('tasks.index'));
 
 })->name('tasks.store');
@@ -52,6 +50,19 @@ Route::get('/task/{task}/edit', function (\App\Models\Task $task){
         'task'=>$task,
     ]);
 })->name('tasks.edit');
+
+Route::put('/tasks/{task}',function (\Illuminate\Http\Request $request){
+    $validator = Validator::make($request->all(),['name'=>'required|max:255',]);
+    if($validator->fails()){
+        return redirect(route('tasks.edit'))
+            ->withInput()
+            ->withErrors($validator);
+    }
+    $task = new \App\Models\Task();
+    $task->name = $request->name;
+    $task->save();
+    return redirect(route('tasks.index'));
+})->name('tasks.update');
 
 
 

@@ -45,7 +45,7 @@
                                 <form action="{{ route('tasks.edit',$task->id) }}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('GET') }}
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-warning">
                                         <i class="fa fa-trash"></i> Edit
                                     </button>
                                 </form>
