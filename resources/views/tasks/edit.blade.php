@@ -9,15 +9,15 @@
     @include('common.errors')
 
     <!-- Форма новой задачи -->
-        <form action="{{ route('tasks.store',$task->id) }}" method="POST" class="form-horizontal">
+        <form action="{{ route('tasks.update',$task->id) }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
-        {{ method_field('GET')}}
+        {{ method_field('put')}}
 
             <div class="form-group">
                 <label for="task" class="col-sm-3 control-label">Редактировать задачу</label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="task" class="form-control" value="{{$task->name}}">
+                    <input type="text" name="name" id="task" class="form-control" value="{{old('name')??$task->name}}">
                 </div>
             </div>
 
